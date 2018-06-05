@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import datetime as dt
 from gpiozero import LED, Button
 import io
@@ -6,6 +8,10 @@ import picamera
 from signal import pause
 import subprocess
 from time import sleep
+from utils.loggerinitializer import *
+
+initialize_logger('./logs')
+logging.info('Logging initialized')
 
 camera = picamera.PiCamera()
 camera.rotation = 180
@@ -17,21 +23,6 @@ led = LED(13)
 btn = Button(23)
 # 18 rx
 # 24 tx
-
-'''
-btn.when_pressed = led.on
-btn.when_released = led.off
-'''
-
-logger = logging.getLogger()
-logger.setLevel(logging.DEBUG)
-     
-# create console handler and set level to info
-handler = logging.StreamHandler()
-handler.setLevel(logging.INFO)
-formatter = logging.Formatter("%(levelname)s - %(message)s")
-handler.setFormatter(formatter)
-logger.addHandler(handler)
 
 def snapshot():
     # TODO (joao) Take & save a snapshot
